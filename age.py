@@ -12,18 +12,18 @@ def date_val():
     return date
 
 
-dateN = date_val()
+date = date_val()
 today = DT.date.today()
 
 
-def age_cal(date):
-    years = today.year - dateN.year
-    if today.month < dateN.month:
+def age_cal():
+    years = today.year - date.year
+    if today.month < date.month:
         years -= 1
-    elif today.month == dateN.month:
-        if today.day < dateN.day:
+    elif today.month == date.month:
+        if today.day < date.day:
             years -= 1
     return years
 
 
-print(age_cal(dateN))
+print(age_cal())
