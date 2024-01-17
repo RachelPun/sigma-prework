@@ -1,4 +1,14 @@
-nums = []  # list of int
+def nums_val():
+    while True:
+        try:
+            nums = list(map(
+                lambda x: int(x),
+                input("Enter a list of integers with space: ").split()
+            ))
+            break
+        except:
+            print("Invalid input. Please try again.")
+    return nums
 
 
 def min_max(nums):
@@ -11,5 +21,7 @@ def min_max(nums):
             max = num
     return [min, max]
 
+
+nums = nums_val()
 
 print(min_max(nums))
