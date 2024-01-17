@@ -12,10 +12,6 @@ def date_val():
     return date
 
 
-date = date_val()
-today = DT.date.today()
-
-
 def age_cal():
     years = today.year - date.year
     if today.month < date.month:
@@ -25,5 +21,8 @@ def age_cal():
             years -= 1
     return years
 
+
+date = date_val()
+today = DT.date.today()
 
 print(age_cal())
