@@ -16,9 +16,6 @@ words_df = words_df[words_df["PoS"].isin(["n", "v", "j"])]
 words = words_df["lemma"].to_list()
 all_synsets = set(wd.all_lemma_names())
 
-# creating memory of used answers
-answers = []
-
 # ==================== functions ====================
 
 
@@ -31,21 +28,21 @@ def prompt_gen():
     return random.choice(words)
 
 
-def answer_in():
+def answer_in(answers):
     """
     #TODO 
     """
     while True:
         ans = input()
         if ans in answers:
-            print("Used word. Try again.")
+            print(f"{ans}: used word. Try again.")
             continue
         if ans in all_synsets:
             break
         else:
-            print("Invalid word. Try again.")
+            print(f"{ans}: Invalid word. Try again.")
     answers.append(ans)
-    return ans
+    return ans, answers
 
 
 def scoring(word1, word2):
@@ -55,29 +52,47 @@ def scoring(word1, word2):
             sims.append(
                 synset1.path_similarity(synset2))
     sim = sum(sims) / len(sims)
-    points = round((1-sim)*10, 2)
+    points = round((1-sim)**2*10, 1)
     return points
 
 
 def score_update(score, points):
-    print(f"+ {points:.1f} points")  # display points
+    print(f"+ {points} points")  # display points
     score_new = score + points
-    print(f"Score: {score_new:.1f}")  # display score_new
+    print(f"Score: {score_new}")  # display score_new
     return score_new
 
 
-def main():
+def game():
     score = 0
     prompt = prompt_gen()
+    answers = [prompt]  # memory of used answers
     while score < 100:
         print(prompt)
-        answer = answer_in()
+        answer, answers = answer_in(answers)
         points = scoring(prompt, answer)
         score = score_update(score, points)
         if score >= 100:
             break
         prompt = answer
     print("You did it! Your Train of Thoughts has been all over the place!")
+
+
+def intro():
+    instructions = """
+"""
+    print(instructions)
+
+# def game_start():
+
+# def game_restart():
+
+
+def main():
+    # intro()
+    game()
+    # game_start()
+    # game_restart()
 
 
 if __name__ == "__main__":
