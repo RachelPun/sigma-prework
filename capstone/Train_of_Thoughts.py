@@ -52,7 +52,7 @@ def scoring(word1, word2):
             sims.append(
                 synset1.path_similarity(synset2))
     sim = sum(sims) / len(sims)
-    points = round((1-sim)**2*10, 1)
+    points = round((1-sim)**3*10, 1)
     return points
 
 
